@@ -1,0 +1,5 @@
+<div>
+  <%= link_to "#{request.auction_number} #{request.customer}", request %>
+  <%= link_to 'Edit', edit_request_path(request) %>
+  <%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' } %>
+</div>
