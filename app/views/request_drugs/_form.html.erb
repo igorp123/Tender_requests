@@ -1,0 +1,17 @@
+<%= form_with(model: request_drug, local: true) do |form| %>
+  <% if request_drug.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(request_drug.errors.count, "error") %> prohibited this request_drug from being saved:</h2>
+
+      <ul>
+      <% request_drug.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
