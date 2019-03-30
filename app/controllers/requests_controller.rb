@@ -6,6 +6,7 @@ class RequestsController < ApplicationController
   end
 
   def show
+    @request_drugs = @request.request_drugs.all
   end
 
   def new

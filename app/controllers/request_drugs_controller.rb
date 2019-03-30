@@ -36,7 +36,7 @@ class RequestDrugsController < ApplicationController
   def destroy
     @request_drug.destroy
 
-    redirect_to request_drugs_url, notice: 'Request drug was successfully destroyed.'
+    redirect_to request_path(@request_drug.request), notice: 'Request drug was successfully destroyed.'
   end
 
   private

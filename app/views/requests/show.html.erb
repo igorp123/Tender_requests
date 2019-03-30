@@ -1,4 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+<%= render partial: 'request_drugs/request_drug', collection: @request_drugs %>
+
 <%= link_to 'Edit', edit_request_path(@request) %> |
 <%= link_to 'Back', requests_path %>

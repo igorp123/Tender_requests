@@ -45,6 +45,6 @@ class DrugsController < ApplicationController
     end
 
     def drug_params
-      params.require(:drug).permit(:id))
+      params.require(:drug).permit(:id)
     end
 end
