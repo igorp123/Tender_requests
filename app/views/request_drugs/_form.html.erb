@@ -4,3 +4,9 @@
   <%#= f.submit %>
 <%# end %>
 
+
+<%= form_for [@request, @new_request_drug] do |f| %>
+  <%= f.collection_select(:drug_id, drugs, :id, :name) %>
+
+  <%= f.submit 'Добавить', class: 'btn btn-primary' %>
+<% end %>

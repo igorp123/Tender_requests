@@ -7,7 +7,10 @@ class RequestsController < ApplicationController
 
   def show
     @request_drugs = @request.request_drugs.all
+
     @new_request_drug = @request.request_drugs.build
+
+    @drugs = Drug.all
   end
 
   def new

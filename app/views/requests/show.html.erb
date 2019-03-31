@@ -2,15 +2,7 @@
 
 <%= render partial: 'request_drugs/request_drug', collection: @request_drugs %>
 
-<%#= render partial: 'request_drugs/form', locals:{request_drug: @new_request_drug} %>
-
-<%= form_for [@request, @new_request_drug] do |f| %>
-
-  <%= f.collection_select(:drug_id, Drug.all, :id, :name) %>
-
-  <%= f.submit 'Добавить', class: 'btn btn-primary' %>
-
-<% end %>
+<%= render partial: 'request_drugs/form', locals:{drugs: @drugs} %>
 
 
 <%= link_to 'Edit', edit_request_path(@request) %> |
