@@ -1,4 +1,8 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+  <%= render partial: 'drug', object: @drug %>
+</p>
+
 <%= link_to 'Edit', edit_drug_path(@drug) %> |
 <%= link_to 'Back', drugs_path %>

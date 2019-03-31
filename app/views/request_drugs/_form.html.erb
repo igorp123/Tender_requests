@@ -1,17 +1,6 @@
-<%= form_with(model: request_drug, local: true) do |form| %>
-  <% if request_drug.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(request_drug.errors.count, "error") %> prohibited this request_drug from being saved:</h2>
+<%#= simple_form_for @new_request_drug, url: request_request_drugs_path do |f| %>
+  <%#= f.input :id, collection: @drugs %>
+  <%#= collection_select(:new_drug, :id, Drug.all, :name, :mnn) %>
+  <%#= f.submit %>
+<%# end %>
 
-      <ul>
-      <% request_drug.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>

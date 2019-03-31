@@ -16,10 +16,11 @@ class RequestDrugsController < ApplicationController
   end
 
   def create
-    @request_drug = RequestDrug.new(request_drug_params)
+    @request = Request.find(params[:request_id])
+    @new_request_drug = @request.request_drugs.build(request_drug_params)
 
-    if @request_drug.save
-      redirect_to @request_drug, notice: 'Request drug was successfully created.'
+    if @new_request_drug.save
+      redirect_to @request, notice: 'Request drug was successfully created.'
     else
       render :new
     end
@@ -36,7 +37,7 @@ class RequestDrugsController < ApplicationController
   def destroy
     @request_drug.destroy
 
-    redirect_to request_path(@request_drug.request), notice: 'Request drug was successfully destroyed.'
+    redirect_to @request_drug.request, notice: 'Request drug was successfully destroyed.'
   end
 
   private
@@ -46,6 +47,6 @@ class RequestDrugsController < ApplicationController
     end
 
     def request_drug_params
-      params.require(:request_drug).permit(:id)
+      params.require(:request_drug).permit(:id, :drug_id, :request_id)
     end
 end
