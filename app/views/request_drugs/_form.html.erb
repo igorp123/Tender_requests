@@ -1,12 +1,7 @@
-<%#= simple_form_for @new_request_drug, url: request_request_drugs_path do |f| %>
-  <%#= f.input :id, collection: @drugs %>
-  <%#= collection_select(:new_drug, :id, Drug.all, :name, :mnn) %>
-  <%#= f.submit %>
-<%# end %>
-
-
 <%= form_for [@request, @new_request_drug] do |f| %>
-  <%= f.collection_select(:drug_id, drugs, :id, :name) %>
+  <%#= f.collection_select(:drug_id, drugs, :id, :name) %>
+
+  <%= f.select(:drug_id, drugs) %>
 
   <%= f.submit 'Добавить', class: 'btn btn-primary' %>
 <% end %>

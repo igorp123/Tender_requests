@@ -10,7 +10,7 @@ class RequestsController < ApplicationController
 
     @new_request_drug = @request.request_drugs.build
 
-    @drugs = Drug.all
+    @drugs = Drug.all.map{ |drug| [ "#{drug.name} | #{drug.mnn}", drug.id ] }
   end
 
   def new
