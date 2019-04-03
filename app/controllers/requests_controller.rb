@@ -55,13 +55,16 @@ class RequestsController < ApplicationController
     end
 
     def request_params
-      params.require(:request).permit(:id, :auction_number, :customer)
+      params.require(:request).permit(:id, :auction_number, :customer, :etp, :number,
+                                      :purchase_info, :max_price, :delivery_time)
     end
 
     def get_data
+      # todo first_or_create
       @request ||= Request.new(request_params)
 
-      @request.get_customer
+      #@request.get_customer
+      parse_xml(@request.auction_number)
     end
 
 end
