@@ -1,0 +1,12 @@
+ru:
+  activerecord:
+    models:
+      drug: 'Препарат'
+      request: 'Заявка'
+    attributes:
+      drug:
+        name: 'Название'
+        mnn: 'МНН'
+      request:
+        auction_number: 'Номер аукциона'
+        customer: 'Заказчик'
