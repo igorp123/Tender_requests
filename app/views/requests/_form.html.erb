@@ -5,12 +5,45 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :etp %>
+    <%= f.text_field :etp, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :purchase_info %>
+    <%= f.text_field :purchase_info, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :max_price %>
+    <%= f.text_field :max_price, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
     <%= f.label :customer %>
     <%= f.text_field :customer, class: 'form-control' %>
   </div>
 
+  <div class="form-group">
+    <%= f.label :delivery_place %>
+    <%= f.text_field :delivery_place, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :delivery_time %>
+    <%= f.text_field :delivery_time, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :exp_date %>
+    <%= f.text_field :exp_date, class: 'form-control' %>
+  </div>
+
   <div class="actions">
-    <%= f.submit 'Сохранить', class: 'btn btn-primary' %> или <%= link_to 'вернуться', :back%>
-    <%= link_to 'Получить данные', get_values_request_path(:id) %>
+    <%= f.submit 'Сохранить', class: 'btn btn-primary' %> или <%= link_to 'вернуться', requests_path%>
+    <%= f.submit 'Получить данные', name: 'get_data_button', class: 'btn btn-info' %>
+    <%#= link_to 'Получить данные', get_values_request_path(:id) %>
   </div>
 <% end %>
+
+

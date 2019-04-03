@@ -1,5 +1,5 @@
 class RequestsController < ApplicationController
-  before_action :set_request, only: [:show, :edit, :update, :destroy, :get_values]
+  before_action :set_request, only: [:show, :edit, :update, :destroy, :get_data]
 
   def index
     @requests = Request.all
@@ -21,12 +21,17 @@ class RequestsController < ApplicationController
   end
 
   def create
-    @request = Request.new(request_params)
+    if params[:get_data_button]
+      get_data
+      render :new
+    else
+      @request = Request.new(request_params)
       if @request.save
         redirect_to @request, notice: 'Request was successfully created.'
       else
         render :new
       end
+    end
   end
 
   def update
@@ -43,18 +48,20 @@ class RequestsController < ApplicationController
     redirect_to requests_url, notice: 'Request was successfully destroyed.'
   end
 
-  def get_values
-    @request.get_customer
-    render :new
-  end
-
   private
 
     def set_request
-      @request = Request.find(params[:id])
+      @request = Request.find_by(id: params[:id])
     end
 
     def request_params
       params.require(:request).permit(:id, :auction_number, :customer)
     end
+
+    def get_data
+      @request ||= Request.new(request_params)
+
+      @request.get_customer
+    end
+
 end
