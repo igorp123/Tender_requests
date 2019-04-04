@@ -56,7 +56,7 @@ class RequestsController < ApplicationController
 
     def request_params
       params.require(:request).permit(:id, :auction_number, :customer, :etp, :number,
-                                      :purchase_info, :max_price, :delivery_time)
+                                      :purchase_info, :max_price, :delivery_time, :delivery_place, :exp_date)
     end
 
     def get_data
