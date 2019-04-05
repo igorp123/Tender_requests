@@ -1,5 +1,5 @@
 class RequestsController < ApplicationController
-  before_action :set_request, only: [:show, :edit, :update, :destroy, :get_data]
+  before_action :set_request, only: [:show, :edit, :update, :destroy]
 
   def index
     @requests = Request.all
@@ -21,11 +21,12 @@ class RequestsController < ApplicationController
   end
 
   def create
+    @request = Request.new(request_params)
+
     if params[:get_data_button]
-      get_data
+      get_xml_data
       render :new
     else
-      @request = Request.new(request_params)
       if @request.save
         redirect_to edit_request_path(@request.id), notice: 'Request was successfully created.'
       else
@@ -35,10 +36,15 @@ class RequestsController < ApplicationController
   end
 
   def update
-    if @request.update(request_params)
-      redirect_to @request, notice: 'Request was successfully updated.'
-    else
+    if params[:get_data_button]
+      get_xml_data
       render :edit
+    else
+      if @request.update(request_params)
+        redirect_to @request, notice: 'Request was successfully updated.'
+      else
+        render :edit
+      end
     end
   end
 
@@ -60,8 +66,8 @@ class RequestsController < ApplicationController
       )
     end
 
-    def get_data
-      @request ||= Request.new(request_params)
+    def get_xml_data
+      #@request ||= Request.new(request_params)
       ZakupkiXmlService.call(@request) if @request.valid?
     end
 
