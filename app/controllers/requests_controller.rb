@@ -27,7 +27,7 @@ class RequestsController < ApplicationController
     else
       @request = Request.new(request_params)
       if @request.save
-        redirect_to @request, notice: 'Request was successfully created.'
+        redirect_to edit_request_path(@request.id), notice: 'Request was successfully created.'
       else
         render :new
       end
@@ -61,10 +61,8 @@ class RequestsController < ApplicationController
     end
 
     def get_data
-      # todo first_or_create
       @request ||= Request.new(request_params)
-
-      ZakupkiXmlService.call(@request)
+      ZakupkiXmlService.call(@request) if @request.valid?
     end
 
 end

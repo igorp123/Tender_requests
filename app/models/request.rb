@@ -3,8 +3,4 @@ class Request < ApplicationRecord
   has_many :drugs, through: :request_drugs
 
   validates :auction_number, presence: true
-
-  def get_customer
-    self.customer = "Igor Plotnikov"
-  end
 end
