@@ -15,6 +15,8 @@ class RequestsController < ApplicationController
 
   def new
     @request = Request.new
+    @new_request_drug = @request.request_drugs.build
+    @drugs = Drug.all.map{ |drug| [ "#{drug.name} | #{drug.mnn}", drug.id ] }
   end
 
   def edit
