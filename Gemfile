@@ -12,6 +12,8 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'mechanize'
 gem 'rexml'
+gem 'cocoon'
+gem 'simple_form'
 
 # gem 'mini_racer', platforms: :ruby
 

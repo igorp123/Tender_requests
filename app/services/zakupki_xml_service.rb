@@ -10,8 +10,8 @@ class ZakupkiXmlService
   XML_PATH_PURCHASE_INFO = 'purchaseObjectInfo'
   XML_PATH_MAX_PRICE = 'lot/maxPrice'
   XML_PATH_DELIVERY_TIME = 'lot/customerRequirements/customerRequirement/deliveryTerm'
-  XML_PATH_KLADR_PLACE = "lot/customerRequirements/customerRequirement/kladrPlaces/kladrPlace/kladr/fullName"
-  XML_PATH_DELIVERY_PLACE = "lot/customerRequirements/customerRequirement/kladrPlaces/kladrPlace/deliveryPlace"
+  XML_PATH_KLADR_PLACE = 'lot/customerRequirements/customerRequirement/kladrPlaces/kladrPlace/kladr/fullName'
+  XML_PATH_DELIVERY_PLACE = 'lot/customerRequirements/customerRequirement/kladrPlaces/kladrPlace/deliveryPlace'
 
   def self.call(request)
     agent = Mechanize.new

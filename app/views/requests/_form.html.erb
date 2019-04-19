@@ -1,47 +1,36 @@
-<%= form_for @request do |f| %>
-  <div class="form-group">
-    <%= f.label :auction_number %>
-    <%= f.text_field :auction_number, class: 'form-control'  %>
-  </div>
+<%= simple_form_for @request do |f| %>
+  <%= f.input :auction_number %>
 
-  <div class="form-group">
-    <%= f.label :etp %>
-    <%= f.text_field :etp, class: 'form-control' %>
-  </div>
+  <%= f.input :etp %>
 
-  <div class="form-group">
-    <%= f.label :purchase_info %>
-    <%= f.text_field :purchase_info, class: 'form-control' %>
-  </div>
+  <%= f.input :purchase_info, as: :text %>
 
-  <div class="form-group">
-    <%= f.label :max_price %>
-    <%= f.text_field :max_price, class: 'form-control' %>
-  </div>
+  <%= f.input :max_price %>
 
-  <div class="form-group">
-    <%= f.label :customer %>
-    <%= f.text_field :customer, class: 'form-control' %>
-  </div>
+  <%= f.input :customer, as: :text %>
 
-  <div class="form-group">
-    <%= f.label :delivery_place %>
-    <%= f.text_field :delivery_place, class: 'form-control' %>
-  </div>
+  <%= f.input :delivery_place, as: :text %>
 
-  <div class="form-group">
-    <%= f.label :delivery_time %>
-    <%= f.text_field :delivery_time, class: 'form-control' %>
-  </div>
+  <%= f.input :delivery_time, as: :text %>
 
-  <div class="form-group">
-    <%= f.label :exp_date %>
-    <%= f.text_field :exp_date, class: 'form-control' %>
-  </div>
+  <%= f.input :exp_date %>
 
-  <div class="actions">
-    <%= f.submit 'Сохранить', class: 'btn btn-primary' %> или <%= link_to 'вернуться', requests_path%>
-    <%= f.submit 'Получить данные', name: 'get_data_button', class: 'btn btn-info' %>
+  <%= f.button :submit, 'Сохранить', class: 'btn btn-primary' %> или <%= link_to 'вернуться', requests_path%>
+
+  <%= f.button :submit, 'Получить данные', name: 'get_data_button', class: 'btn btn-info' %>
+
+  <div id="tasks" class="mt-3">
+    <div class="row">
+      <div class="col-md-12">
+        <%= f.simple_fields_for :request_drugs do |request_drug| %>
+          <%= render 'request_drug_fields', f: request_drug %>
+        <% end %>
+
+        <div class="links">
+          <%= link_to_add_association 'Добавить препарат', f, :request_drugs, class: 'btn btn-primary form-control' %>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
 

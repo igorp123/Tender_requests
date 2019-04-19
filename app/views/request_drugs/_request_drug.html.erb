@@ -2,4 +2,5 @@
   <%= link_to "#{request_drug.drug.name}  #{request_drug.drug.mnn}", request_drug.drug %>
   <%= link_to "Remove", request_request_drug_path(request_drug.request, request_drug),
               method: :delete, data: { confirm: 'Are you sure?' } %>
+
 </div>

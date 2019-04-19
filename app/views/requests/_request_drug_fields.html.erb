@@ -1,0 +1,11 @@
+<div class="nested-fields">
+  <div class="row">
+    <div class="col-md-10">
+      <%= f.association :drug, collection: Drug.all, label: false %>
+    </div>
+
+    <div class="col-md-2">
+      <%= link_to_remove_association 'Удалить', f, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>
