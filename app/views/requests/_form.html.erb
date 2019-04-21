@@ -34,4 +34,20 @@
   </div>
 <% end %>
 
+  <div class="customer_drugs">
+    <table >
+
+        <% @request.customer_drugs.each do |drug| %>
+          <tr>
+            <td ><%= drug.mnn %></td>
+            <td><%= drug.quantity %></td>
+            <td><%= drug.price %></td>
+            <td><%= drug.cost %></td>
+          </tr>
+        <% end %>
+
+    </table>
+  </div>
+
+
 

@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_20_101805) do
+ActiveRecord::Schema.define(version: 2019_04_21_192937) do
+
+  create_table "customer_drugs", force: :cascade do |t|
+    t.string "mnn"
+    t.string "quantity"
+    t.string "price"
+    t.string "cost"
+    t.integer "request_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["request_id"], name: "index_customer_drugs_on_request_id"
+  end
+
+  create_table "dosages", force: :cascade do |t|
+    t.string "form"
+    t.string "valve"
+    t.string "unit"
+    t.integer "customer_drug_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_drug_id"], name: "index_dosages_on_customer_drug_id"
+  end
 
   create_table "drugs", force: :cascade do |t|
     t.string "name"

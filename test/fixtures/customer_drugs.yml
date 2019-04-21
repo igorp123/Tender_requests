@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mnn: MyString
+  quantity: MyString
+  price: MyString
+  cost: MyString
+  request: one
+
+two:
+  mnn: MyString
+  quantity: MyString
+  price: MyString
+  cost: MyString
+  request: two
