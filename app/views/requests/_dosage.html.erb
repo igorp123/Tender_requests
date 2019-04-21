@@ -1,0 +1,10 @@
+<div>
+  <% if dosage_counter == 0 %>
+    Основной вариант поставки:
+  <% else %>
+    Альтернативные варианты поставки:
+  <% end %>
+
+  <%= "#{dosage.form}, #{dosage.valve}, #{dosage.unit}" %>
+</div>
+
