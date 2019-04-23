@@ -2,7 +2,7 @@ class CreateDosages < ActiveRecord::Migration[5.2]
   def change
     create_table :dosages do |t|
       t.string :form
-      t.string :valve
+      t.string :value
       t.string :unit
       t.references :customer_drug, foreign_key: true
 

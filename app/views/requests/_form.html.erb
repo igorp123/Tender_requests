@@ -59,6 +59,9 @@
 
   <%= f.simple_fields_for :customer_drugs do |drug| %>
     <%= drug.hidden_field :mnn%>
+    <%= drug.hidden_field :quantity%>
+    <%= drug.hidden_field :price%>
+    <%= drug.hidden_field :cost%>
   <% end %>
 <% end %>
 

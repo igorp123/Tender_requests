@@ -33,14 +33,21 @@ class ZakupkiXmlService
     request.delivery_place = "#{kladr_address} ||||| #{xml_doc.search(XML_PATH_DELIVERY_PLACE).text}"
 
 
-    xml_doc.search("drugsInfo").each do |drug|
+    xml_doc.search("drugPurchaseObjectInfo").each do |drug|
       drug_name = drug.search('MNNName').first.text
-      drug_quantity = drug.search('MNNName').first.text
-      drug_price = drug.search('MNNName').first.text
-      drug_cost = drug.search('MNNName').first.text
+      drug_quantity = drug.search('drugQuantity').first.text
+      drug_price = drug.search('pricePerUnit').first.text
+      drug_cost = drug.search('positionPrice').first.text
 
-      if request.customer_drugs.detect{ |c| c.mnn == drug_name }.blank?
-        request.customer_drugs.build(mnn: drug.search('MNNName').first.text)
+      if request.customer_drugs.detect{ |c| c.mnn == drug_name &&
+                                            c.quantity == drug_quantity &&
+                                            c.price == drug_price &&
+                                            c.cost == drug_cost}.blank?
+
+        request.customer_drugs.build(mnn: drug_name,
+                                     quantity: drug_quantity,
+                                     price: drug_price,
+                                     cost: drug_cost)
       end
     end
 

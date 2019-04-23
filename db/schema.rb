@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2019_04_21_192937) do
 
   create_table "dosages", force: :cascade do |t|
     t.string "form"
-    t.string "valve"
+    t.string "value"
     t.string "unit"
     t.integer "customer_drug_id"
     t.datetime "created_at", null: false
