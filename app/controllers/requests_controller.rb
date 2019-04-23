@@ -67,12 +67,12 @@ class RequestsController < ApplicationController
     def request_params
       params.require(:request).permit(:id, :auction_number, :customer, :etp, :number,
        :purchase_info, :max_price, :delivery_time, :delivery_place, :exp_date,
-       request_drugs_attributes: [:id, :drug_id, :request_id, :quantity, :_destroy]
-      )
+       request_drugs_attributes: [:id, :drug_id, :request_id, :quantity, :_destroy],
+       customer_drugs_attributes: [:id,:mnn]
+                                      )
     end
 
     def get_xml_data
-      #@request ||= Request.new(request_params)
       ZakupkiXmlService.call(@request) if @request.valid?
     end
 

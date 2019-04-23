@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   resources :requests do
     resources :request_drugs
-    #get 'get_values', on: :member
   end
 
   resources :drugs

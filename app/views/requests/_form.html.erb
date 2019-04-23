@@ -32,7 +32,6 @@
       </div>
     </div>
   </div>
-<% end %>
 
   <div class="customer_drugs mt-5">
     <table>
@@ -43,20 +42,27 @@
           <th>Количество</th>
           <th>Цена за единицу</th>
           <th>Стоимость</th>
-         </tr>
+        </tr>
       <% end %>
-      
-        <% @request.customer_drugs.each do |drug| %>
-          <tr>
-            <td><%= drug.mnn %></td>
-            <td><%= render partial: 'dosage', collection: drug.dosages %></td>
-            <td><%= drug.quantity %></td>
-            <td><%= drug.price %></td>
-            <td><%= drug.cost %></td>
-          </tr>
-        <% end %>
+
+      <% @request.customer_drugs.each do |drug| %>
+        <tr>
+          <td><%= drug.mnn %></td>
+          <td><%= render partial: 'dosage', collection: drug.dosages %></td>
+          <td><%= drug.quantity %></td>
+          <td><%= drug.price %></td>
+          <td><%= drug.cost %></td>
+        </tr>
+      <% end %>
     </table>
   </div>
+
+  <%= f.simple_fields_for :customer_drugs do |drug| %>
+    <%= drug.hidden_field :mnn%>
+  <% end %>
+<% end %>
+
+
 
 
 
