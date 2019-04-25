@@ -48,7 +48,7 @@
       <% @request.customer_drugs.each do |drug| %>
         <tr>
           <td><%= drug.mnn %></td>
-          <td><%= render partial: 'dosage', collection: drug.dosages %></td>
+          <td><%#= render partial: 'dosage', collection: drug.dosages %></td>
           <td><%= drug.quantity %></td>
           <td><%= drug.price %></td>
           <td><%= drug.cost %></td>
