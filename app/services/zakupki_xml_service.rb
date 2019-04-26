@@ -21,7 +21,7 @@ class ZakupkiXmlService
     xml_link = "#{ZAKUPKI_URL}#{page.link_with(class: 'size14').href.gsub('view.html', 'viewXml.html')}"
 
     xml_doc = agent.get(xml_link).xml.remove_namespaces!
-
+    #request.customer_drugs.destroy_all
     request.number = xml_doc.search(XML_PATH_NUMBER)
     request.etp = xml_doc.search(XML_PATH_ETP).text
     request.customer = xml_doc.search(XML_PATH_CUSTOMER).text
@@ -32,24 +32,44 @@ class ZakupkiXmlService
     kladr_address = xml_doc.search(XML_PATH_KLADR_PLACE).text
     request.delivery_place = "#{kladr_address} ||||| #{xml_doc.search(XML_PATH_DELIVERY_PLACE).text}"
 
-
     xml_doc.search("drugPurchaseObjectInfo").each do |drug|
       drug_name = drug.search('MNNName').first.text
       drug_quantity = drug.search('drugQuantity').first.text
       drug_price = drug.search('pricePerUnit').first.text
       drug_cost = drug.search('positionPrice').first.text
 
-      if request.customer_drugs.detect{ |c| c.mnn == drug_name &&
-                                            c.quantity == drug_quantity &&
-                                            c.price == drug_price &&
-                                            c.cost == drug_cost}.blank?
-
-        request.customer_drugs.build(mnn: drug_name,
+      new_drug = request.customer_drugs.where(mnn: drug_name,
                                      quantity: drug_quantity,
                                      price: drug_price,
-                                     cost: drug_cost)
+                                     cost: drug_cost).first_or_initialize
+      drug.search("medicamentalFormName").each do |item|
+        new_drug.dosages.build(form: item.text)
       end
-    end
+
+      end
+
+
+
+    # xml_doc.search("drugPurchaseObjectInfo").each do |drug|
+    #   drug_name = drug.search('MNNName').first.text
+    #   drug_quantity = drug.search('drugQuantity').first.text
+    #   drug_price = drug.search('pricePerUnit').first.text
+    #   drug_cost = drug.search('positionPrice').first.text
+    #
+    #   if request.customer_drugs.detect{ |c| c.mnn == drug_name &&
+    #       c.quantity == drug_quantity &&
+    #       c.price == drug_price &&
+    #       c.cost == drug_cost}.blank?
+    #
+    #     new_drug = request.customer_drugs.build(mnn: drug_name,
+    #                                             quantity: drug_quantity,
+    #                                             price: drug_price,
+    #                                             cost: drug_cost)
+    #     new_drug.dosages.build(form: drug.search().text)
+    #
+    #   end
+    #
+    # end
 
       # puts aaa.search("medicamentalFormName")
       # puts aaa.search("dosageGRLSValue")
