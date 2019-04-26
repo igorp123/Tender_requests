@@ -38,7 +38,18 @@ class ZakupkiXmlService
       drug_quantity = drug.search('drugQuantity').first.text
       drug_price = drug.search('pricePerUnit').first.text
       drug_cost = drug.search('positionPrice').first.text
+      drug_dosage_form = drug.search('medicamentalFormName').text
+      dos = []
+      drug.search('medicamentalFormName').each_with_index do |item, index|
+        if index == 0
+          dos << 'Основная:'
+        else
+          dos << 'Алтернативная:'
+        end
 
+        dos << "#{item.text}"
+
+      end
       if request.customer_drugs.detect{ |c| c.mnn == drug_name &&
                                             c.quantity == drug_quantity &&
                                             c.price == drug_price &&
@@ -47,7 +58,7 @@ class ZakupkiXmlService
         request.customer_drugs.build(mnn: drug_name,
                                      quantity: drug_quantity,
                                      price: drug_price,
-                                     cost: drug_cost)
+                                     cost: drug_cost, dosage_form: dos)
       end
     end
 

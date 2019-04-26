@@ -48,7 +48,7 @@
       <% @request.customer_drugs.each do |drug| %>
         <tr>
           <td><%= drug.mnn %></td>
-          <td><%#= render partial: 'dosage', collection: drug.dosages %></td>
+          <td><%= drug.dosage_form%></td>
           <td><%= drug.quantity %></td>
           <td><%= drug.price %></td>
           <td><%= drug.cost %></td>
@@ -59,6 +59,7 @@
 
   <%= f.simple_fields_for :customer_drugs do |drug| %>
     <%= drug.hidden_field :mnn%>
+    <%= drug.hidden_field :dosage_form%>
     <%= drug.hidden_field :quantity%>
     <%= drug.hidden_field :price%>
     <%= drug.hidden_field :cost%>
