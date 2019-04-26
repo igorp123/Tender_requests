@@ -21,7 +21,7 @@ class ZakupkiXmlService
     xml_link = "#{ZAKUPKI_URL}#{page.link_with(class: 'size14').href.gsub('view.html', 'viewXml.html')}"
 
     xml_doc = agent.get(xml_link).xml.remove_namespaces!
-    #request.customer_drugs.destroy_all
+    request.customer_drugs.destroy_all
     request.number = xml_doc.search(XML_PATH_NUMBER)
     request.etp = xml_doc.search(XML_PATH_ETP).text
     request.customer = xml_doc.search(XML_PATH_CUSTOMER).text
@@ -42,8 +42,20 @@ class ZakupkiXmlService
                                      quantity: drug_quantity,
                                      price: drug_price,
                                      cost: drug_cost).first_or_initialize
-      drug.search("medicamentalFormName").each do |item|
-        new_drug.dosages.build(form: item.text)
+
+      drug.search("drugInfo").each do |drug_form|
+        form = drug_form.search('medicamentalFormName').text
+
+        value = drug_form.search('dosageGRLSValue').text
+
+        unit = if drug_form.search('manualUserOKEI/name').any?
+                 drug_form.search('manualUserOKEI/name')
+
+               else
+                 drug_form.search('dosageUserOKEI/name')
+               end
+
+        new_drug.dosages.build(form: form, value: value, unit: unit.text)
       end
 
       end

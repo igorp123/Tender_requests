@@ -57,12 +57,25 @@
     </table>
   </div>
 
-  <%= f.simple_fields_for :customer_drugs do |drug| %>
-    <%= drug.hidden_field :mnn%>
-    <%= drug.hidden_field :quantity%>
-    <%= drug.hidden_field :price%>
-    <%= drug.hidden_field :cost%>
+  <%= f.simple_fields_for :customer_drugs do |f_drug| %>
+    <%= f_drug.hidden_field :mnn %>
+    <%= f_drug.hidden_field :quantity %>
+    <%= f_drug.hidden_field :price %>
+    <%= f_drug.hidden_field :cost %>
+
+    <%= f_drug.simple_fields_for :dosages do |f_dosage| %>
+      <%= f_dosage.hidden_field :form %>
+      <%= f_dosage.hidden_field :value %>
+      <%= f_dosage.hidden_field :unit %>
+    <% end %>
+
+
+
   <% end %>
+
+
+
+
 <% end %>
 
 

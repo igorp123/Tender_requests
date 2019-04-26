@@ -21,9 +21,7 @@ class RequestsController < ApplicationController
   end
 
   def create
-    #byebug
     @request = Request.new(request_params)
-
     if params[:get_data_button]
       get_xml_data
       render :new
@@ -41,7 +39,7 @@ class RequestsController < ApplicationController
       get_xml_data
       render :edit
     else
-      #byebug
+
       if @request.update(request_params)
         redirect_to edit_request_path(@request.id), notice: 'Request was successfully updated.'
       else
@@ -66,7 +64,10 @@ class RequestsController < ApplicationController
       params.require(:request).permit(:id, :auction_number, :customer, :etp, :number,
        :purchase_info, :max_price, :delivery_time, :delivery_place, :exp_date,
        request_drugs_attributes: [:id, :drug_id, :request_id, :quantity, :_destroy],
-       customer_drugs_attributes: [:id, :mnn, :quantity, :price, :cost]
+       customer_drugs_attributes: [
+         :id, :mnn, :quantity, :price, :cost,
+         dosages_attributes: [:id, :form, :value, :unit, :customer_drug_id]
+       ]
        )
     end
 
