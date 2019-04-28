@@ -21,7 +21,7 @@ class ZakupkiXmlService
     xml_link = "#{ZAKUPKI_URL}#{page.link_with(class: 'size14').href.gsub('view.html', 'viewXml.html')}"
 
     xml_doc = agent.get(xml_link).xml.remove_namespaces!
-    request.customer_drugs.destroy_all
+
     request.number = xml_doc.search(XML_PATH_NUMBER)
     request.etp = xml_doc.search(XML_PATH_ETP).text
     request.customer = xml_doc.search(XML_PATH_CUSTOMER).text
@@ -38,10 +38,7 @@ class ZakupkiXmlService
       drug_price = drug.search('pricePerUnit').first.text
       drug_cost = drug.search('positionPrice').first.text
 
-      new_drug = request.customer_drugs.where(mnn: drug_name,
-                                     quantity: drug_quantity,
-                                     price: drug_price,
-                                     cost: drug_cost).first_or_initialize
+      new_drug = find_or_build(request.customer_drugs, {mnn: drug_name, quantity: drug_quantity, price: drug_price, cost: drug_cost })
 
       drug.search("drugInfo").each do |drug_form|
         form = drug_form.search('medicamentalFormName').text
@@ -49,52 +46,23 @@ class ZakupkiXmlService
         value = drug_form.search('dosageGRLSValue').text
 
         unit = if drug_form.search('manualUserOKEI/name').any?
-                 drug_form.search('manualUserOKEI/name')
-
+                 drug_form.search('manualUserOKEI/name').text
                else
-                 drug_form.search('dosageUserOKEI/name')
+                 drug_form.search('dosageUserOKEI/name').text
                end
 
-        new_drug.dosages.build(form: form, value: value, unit: unit.text)
+        new_drug.dosages.detect{|x| x.form == form && x.value == value && x.unit == unit} ||
+            new_drug.dosages.build(form: form, value: value, unit: unit)
       end
-
-      end
-
-
-
-    # xml_doc.search("drugPurchaseObjectInfo").each do |drug|
-    #   drug_name = drug.search('MNNName').first.text
-    #   drug_quantity = drug.search('drugQuantity').first.text
-    #   drug_price = drug.search('pricePerUnit').first.text
-    #   drug_cost = drug.search('positionPrice').first.text
-    #
-    #   if request.customer_drugs.detect{ |c| c.mnn == drug_name &&
-    #       c.quantity == drug_quantity &&
-    #       c.price == drug_price &&
-    #       c.cost == drug_cost}.blank?
-    #
-    #     new_drug = request.customer_drugs.build(mnn: drug_name,
-    #                                             quantity: drug_quantity,
-    #                                             price: drug_price,
-    #                                             cost: drug_cost)
-    #     new_drug.dosages.build(form: drug.search().text)
-    #
-    #   end
-    #
-    # end
-
-      # puts aaa.search("medicamentalFormName")
-      # puts aaa.search("dosageGRLSValue")
-      # puts aaa.search("name") #dosageUserOKEI manualUserOKEI
-
-
+    end
   end
 
-  # private
-  #
-  # def self.xml_element(doc, path)
-  #   value = doc.root.elements[path]
-  #   value.text unless value.blank?
-  # end
+  private
 
+  def self.find_or_build(model, attributes)
+    model.detect{ |x| x.mnn == attributes[:mnn] &&
+                      x.quantity == attributes[:quantity] &&
+                      x.price == attributes[:price] } ||
+      model.build(attributes)
+  end
 end

@@ -9,4 +9,5 @@ class Request < ApplicationRecord
 
 
   validates :auction_number, presence: true
+
 end
