@@ -72,7 +72,8 @@ class RequestsController < ApplicationController
     end
 
     def get_xml_data
-      ZakupkiXmlService.call(@request) if @request.valid?
+      #ZakupkiXmlService.call(@request) if @request.valid?
+      @request.xml_parse if @request.valid?
     end
 
 end
