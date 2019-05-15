@@ -15,6 +15,7 @@ module Models
 
 
       def xml_parse
+
         agent = Mechanize.new
 
         agent.user_agent_alias = 'Mac Safari'
@@ -25,15 +26,15 @@ module Models
 
         xml_doc = agent.get(xml_link).xml.remove_namespaces!
 
-        number = xml_doc.search(XML_PATH_NUMBER)
-        etp = xml_doc.search(XML_PATH_ETP).text
-        customer = xml_doc.search(XML_PATH_CUSTOMER).text
-        purchase_info = xml_doc.search(XML_PATH_PURCHASE_INFO).text
-        max_price = xml_doc.search(XML_PATH_MAX_PRICE).text
-        delivery_time = xml_doc.search(XML_PATH_DELIVERY_TIME).text
+        self.number = xml_doc.search(XML_PATH_NUMBER)
+        self.etp = xml_doc.search(XML_PATH_ETP).text
+        self.customer = xml_doc.search(XML_PATH_CUSTOMER).text
+        self.purchase_info = xml_doc.search(XML_PATH_PURCHASE_INFO).text
+        self.max_price = xml_doc.search(XML_PATH_MAX_PRICE).text
+        self.delivery_time = xml_doc.search(XML_PATH_DELIVERY_TIME).text
 
         kladr_address = xml_doc.search(XML_PATH_KLADR_PLACE).text
-        delivery_place = "#{kladr_address} ||||| #{xml_doc.search(XML_PATH_DELIVERY_PLACE).text}"
+        self.delivery_place = "#{kladr_address} ||||| #{xml_doc.search(XML_PATH_DELIVERY_PLACE).text}"
 
         xml_doc.search("drugPurchaseObjectInfo").each do |drug|
           customer_drugs_attributes = {
