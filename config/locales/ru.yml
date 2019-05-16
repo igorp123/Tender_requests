@@ -9,7 +9,7 @@ ru:
         mnn: 'МНН'
       request:
         auction_number: 'Номер аукциона'
-        purchase_info: 'Объект закупки'
+        purchase_info: 'Контракт на'
         etp: 'Электронная площадка'
         max_price: 'НМЦК'
         customer: 'Заказчик'

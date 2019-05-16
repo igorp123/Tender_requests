@@ -34,26 +34,30 @@
   </div>
 
   <div class="customer_drugs mt-5">
-    <table>
+    <p class="font-weight-bold">Препараты из документации</p>
+    <table class="table table-bordered customer_drugs_table">
       <% if @request.customer_drugs.present? %>
-        <tr>
-          <th>МНН</th>
-          <th>Сведения о лекарственных формах, дозировках и единицах измерения</th>
-          <th>Количество</th>
-          <th>Цена за единицу</th>
-          <th>Стоимость</th>
+        <thead class="table-secondary">
+        <tr class="text-center ">
+          <th class="align-middle">МНН</th>
+          <th class="align-middle">Сведения о лекарственных формах, дозировках и единицах измерения</th>
+          <th class="align-middle">Количество</th>
+          <th class="align-middle">Цена за единицу</th>
+          <th class="align-middle">Стоимость</th>
         </tr>
+        </thead>
       <% end %>
 
       <% @request.customer_drugs.each do |drug| %>
         <tr>
           <td><%= drug.mnn %></td>
           <td><%= render partial: 'dosage', collection: drug.dosages %></td>
-          <td><%= drug.quantity %></td>
-          <td><%= drug.price %></td>
-          <td><%= drug.cost %></td>
+          <td class="text-center"><%= drug.quantity %></td>
+          <td class="text-center"><%= drug.price %></td>
+          <td class="text-center"><%= drug.cost %></td>
         </tr>
       <% end %>
+
     </table>
   </div>
 
