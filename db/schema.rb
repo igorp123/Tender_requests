@@ -10,12 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_21_192937) do
+ActiveRecord::Schema.define(version: 2019_05_19_173239) do
 
   create_table "customer_drugs", force: :cascade do |t|
     t.string "mnn"
     t.string "quantity"
-    t.string "dosage_form"
     t.string "price"
     t.string "cost"
     t.integer "request_id"
@@ -47,6 +46,7 @@ ActiveRecord::Schema.define(version: 2019_04_21_192937) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "quantity"
+    t.string "unit"
     t.index ["drug_id"], name: "index_request_drugs_on_drug_id"
     t.index ["request_id"], name: "index_request_drugs_on_request_id"
   end

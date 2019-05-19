@@ -59,6 +59,8 @@ module Models
 
             find_or_create_dosage(new_drug, dosages_attributes)
           end
+
+          add_quantity_to_request_drugs
         end
       end
 
@@ -79,6 +81,14 @@ module Models
             dosage.value == attributes[:value] &&
             dosage.unit == attributes[:unit]
         end || drug.dosages.build(attributes)
+      end
+
+      def add_quantity_to_request_drugs
+        self.request_drugs.destroy_all
+
+        self.customer_drugs.each do |drug|
+          self.request_drugs.build(quantity: drug.quantity, unit: drug.dosages.first.unit)
+        end
       end
     end
   end
