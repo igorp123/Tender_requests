@@ -59,9 +59,9 @@ module Models
 
             find_or_create_dosage(new_drug, dosages_attributes)
           end
-
-          add_quantity_to_request_drugs
         end
+
+        add_quantity_to_request_drugs
       end
 
       private
@@ -84,10 +84,14 @@ module Models
       end
 
       def add_quantity_to_request_drugs
-        self.request_drugs.destroy_all
+        customer_drugs.each_with_index do |drug, index|
+          drug_attributes = { quantity: drug.quantity, unit: drug.dosages.first.unit }
 
-        self.customer_drugs.each do |drug|
-          self.request_drugs.build(quantity: drug.quantity, unit: drug.dosages.first.unit)
+          if request_drugs[index].present?
+             request_drugs[index].attributes = drug_attributes
+          else
+             request_drugs.build(drug_attributes)
+          end
         end
       end
     end

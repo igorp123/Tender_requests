@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2019_05_19_173239) do
   create_table "customer_drugs", force: :cascade do |t|
     t.string "mnn"
     t.string "quantity"
+    t.string "dosage_form"
     t.string "price"
     t.string "cost"
     t.integer "request_id"
