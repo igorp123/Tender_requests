@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_19_173239) do
+ActiveRecord::Schema.define(version: 2019_05_20_141203) do
+
+  create_table "countries", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "customer_drugs", force: :cascade do |t|
     t.string "mnn"
@@ -38,6 +45,11 @@ ActiveRecord::Schema.define(version: 2019_05_19_173239) do
     t.string "mnn"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "dosage_form"
+    t.string "unit"
+    t.string "pack"
+    t.integer "country_id"
+    t.index ["country_id"], name: "index_drugs_on_country_id"
   end
 
   create_table "request_drugs", force: :cascade do |t|

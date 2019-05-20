@@ -22,7 +22,6 @@
       <th class="align-middle">Наименование товара, указание на товарный знак (при его наличии) предлагаемого участником размещения заказа</th>
       <th class="align-middle">Форма выпуска (согласно записи в государственном реестре лекарственных средств)</th>
       <th class="align-middle">Страна происхождения</th>
-      <th class="align-middle">РУ</th>
       <th class="align-middle">Ед. изм.</th>
       <th class="align-middle">Кол-во</th>
     </tr>
@@ -33,8 +32,7 @@
       <td><%= request_drug.drug.mnn %></td>
       <td><%= request_drug.drug.name %></td>
       <td>1</td>
-      <td>2</td>
-      <td class="text-center">3</td>
+      <td><%= "#{request_drug.drug.country.name}, #{request_drug.drug.country.code}" %></td>
       <td class="text-center"><%= request_drug.unit %></td>
       <td class="text-center"><%= request_drug.quantity %></td>
     </tr>
