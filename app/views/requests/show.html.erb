@@ -24,6 +24,10 @@
       <th class="align-middle">Страна происхождения</th>
       <th class="align-middle">Ед. изм.</th>
       <th class="align-middle">Кол-во</th>
+      <th class="align-middle">Ед. изм.</th>
+      <th class="align-middle">Кол-во</th>
+
+
     </tr>
   <thead>
   <% @request_drugs.each_with_index do |request_drug, number| %>
@@ -31,8 +35,10 @@
       <td class="text-center"><%= number + 1 %></td>
       <td><%= request_drug.drug.mnn %></td>
       <td><%= request_drug.drug.name %></td>
-      <td>1</td>
+      <td><%= request_drug.drug.dosage_form %></td>
       <td><%= "#{request_drug.drug.country.name}, #{request_drug.drug.country.code}" %></td>
+      <td><%= request_drug.drug.unit %></td>
+      <td><%= request_drug.drug.packing %></td>
       <td class="text-center"><%= request_drug.unit %></td>
       <td class="text-center"><%= request_drug.quantity %></td>
     </tr>

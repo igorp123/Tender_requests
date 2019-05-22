@@ -46,8 +46,9 @@ ActiveRecord::Schema.define(version: 2019_05_20_141203) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "dosage_form"
+    t.string "packing"
     t.string "unit"
-    t.string "pack"
+    t.string "producer"
     t.integer "country_id"
     t.index ["country_id"], name: "index_drugs_on_country_id"
   end

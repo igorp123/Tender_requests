@@ -1,5 +1,6 @@
 class DrugsController < ApplicationController
   before_action :set_drug, only: [:show, :edit, :update, :destroy]
+  before_action :set_country, only: [:show, :edit]
 
   def index
     @drugs = Drug.all
@@ -44,7 +45,11 @@ class DrugsController < ApplicationController
       @drug = Drug.find(params[:id])
     end
 
+    def set_country
+      @countries = Country.all
+    end
+
     def drug_params
-      params.require(:drug).permit(:id)
+      params.require(:drug).permit(:id, :mnn, :name, :country_id, :dosage_form, :packing, :producer, :unit)
     end
 end
