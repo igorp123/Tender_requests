@@ -34,35 +34,45 @@
   </div>
 
   <div class="customer_drugs mt-5">
-    <table>
+    <p class="font-weight-bold">Препараты из документации</p>
+    <table class="table table-bordered customer_drugs_table">
       <% if @request.customer_drugs.present? %>
-        <tr>
-          <th>МНН</th>
-          <th>Сведения о лекарственных формах, дозировках и единицах измерения</th>
-          <th>Количество</th>
-          <th>Цена за единицу</th>
-          <th>Стоимость</th>
+        <thead class="table-secondary">
+        <tr class="text-center ">
+          <th class="align-middle">МНН</th>
+          <th class="align-middle">Сведения о лекарственных формах, дозировках и единицах измерения</th>
+          <th class="align-middle">Количество</th>
+          <th class="align-middle">Цена за единицу</th>
+          <th class="align-middle">Стоимость</th>
         </tr>
+        </thead>
       <% end %>
 
       <% @request.customer_drugs.each do |drug| %>
         <tr>
           <td><%= drug.mnn %></td>
-          <td><%= drug.dosage_form%></td>
-          <td><%= drug.quantity %></td>
-          <td><%= drug.price %></td>
-          <td><%= drug.cost %></td>
+          <td><%= render partial: 'dosage', collection: drug.dosages %></td>
+          <td class="text-center"><%= drug.quantity %></td>
+          <td class="text-center"><%= drug.price %></td>
+          <td class="text-center"><%= drug.cost %></td>
+>>>>>>> with_dosage_model
         </tr>
       <% end %>
+
     </table>
   </div>
 
-  <%= f.simple_fields_for :customer_drugs do |drug| %>
-    <%= drug.hidden_field :mnn%>
-    <%= drug.hidden_field :dosage_form%>
-    <%= drug.hidden_field :quantity%>
-    <%= drug.hidden_field :price%>
-    <%= drug.hidden_field :cost%>
+  <%= f.simple_fields_for :customer_drugs do |f_drug| %>
+    <%= f_drug.hidden_field :mnn %>
+    <%= f_drug.hidden_field :quantity %>
+    <%= f_drug.hidden_field :price %>
+    <%= f_drug.hidden_field :cost %>
+
+    <%= f_drug.simple_fields_for :dosages do |f_dosage| %>
+      <%= f_dosage.hidden_field :form %>
+      <%= f_dosage.hidden_field :value %>
+      <%= f_dosage.hidden_field :unit %>
+    <% end %>
   <% end %>
 <% end %>
 

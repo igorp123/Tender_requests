@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_21_192457) do
+
+ActiveRecord::Schema.define(version: 2019_05_20_141203) do
+
+  create_table "countries", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "customer_drugs", force: :cascade do |t|
     t.string "mnn"
@@ -29,6 +37,12 @@ ActiveRecord::Schema.define(version: 2019_04_21_192457) do
     t.string "mnn"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "dosage_form"
+    t.string "packing"
+    t.string "unit"
+    t.string "producer"
+    t.integer "country_id"
+    t.index ["country_id"], name: "index_drugs_on_country_id"
   end
 
   create_table "request_drugs", force: :cascade do |t|
@@ -37,6 +51,7 @@ ActiveRecord::Schema.define(version: 2019_04_21_192457) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "quantity"
+    t.string "unit"
     t.index ["drug_id"], name: "index_request_drugs_on_drug_id"
     t.index ["request_id"], name: "index_request_drugs_on_request_id"
   end

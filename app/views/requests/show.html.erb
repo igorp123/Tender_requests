@@ -1,11 +1,68 @@
 <p id="notice"><%= notice %></p>
 
-<%= render partial: 'request_drugs/request_drug', collection: @request_drugs %>
+<div class="text-justify">
+  <p>Изучив документацию об электронном аукционе (извещение № <%= @request.auction_number %>)
+    на право заключить государственный контракт на <%= @request.purchase_info %>,
+    сообщаем вам о согласии поставить товар в соответствии с требованиями и на условиях,
+    предусмотренных документацией об электронном аукционе.
+  </p>
 
-<%= render partial: 'request_drugs/form', locals:{drugs: @drugs} %>
+  <p><span class="font-weight-bold">Сведения о товаре:</span> Требования к качеству, техническим характеристикам товара, требования
+    к их безопасности, требования к функциональным характеристикам (потребительским свойствам) товара,
+    требования к размерам, упаковке, отгрузке товара и иные показатели, связанные с определением соответствия
+    поставляемого товара, потребностям заказчика
+  </p>
+</div>
+
+<table class="table table-bordered request-table">
+  <thead class="table-secondary">
+    <tr class="text-center">
+      <th class="align-middle">№ п/п</th>
+      <th class="align-middle">Международное непатентованное название</th>
+      <th class="align-middle">Наименование товара, указание на товарный знак (при его наличии) предлагаемого участником размещения заказа</th>
+      <th class="align-middle">Форма выпуска (согласно записи в государственном реестре лекарственных средств)</th>
+      <th class="align-middle">Страна происхождения</th>
+      <th class="align-middle">Ед. изм.</th>
+      <th class="align-middle">Кол-во</th>
+      <th class="align-middle">Ед. изм.</th>
+      <th class="align-middle">Кол-во</th>
 
 
-<%= link_to 'Edit', edit_request_path(@request) %> |
-<%= link_to 'Back', requests_path %>
+    </tr>
+  <thead>
+  <% @request_drugs.each_with_index do |request_drug, number| %>
+    <tr>
+      <td class="text-center"><%= number + 1 %></td>
+      <td><%= request_drug.drug.mnn %></td>
+      <td><%= request_drug.drug.name %></td>
+      <td><%= request_drug.drug.dosage_form %></td>
+      <td><%= "#{request_drug.drug.country.name}, #{request_drug.drug.country.code}" %></td>
+      <td><%= request_drug.drug.unit %></td>
+      <td><%= request_drug.drug.packing %></td>
+      <td class="text-center"><%= request_drug.unit %></td>
+      <td class="text-center"><%= request_drug.quantity %></td>
+    </tr>
+  <% end %>
+</table>
+
+<div class="text-justify">
+  <ul class="list-group">
+    <li class="list-group-item">Поставляемый  товар  соответствует  ГОСТам,  международным стандартам. Товарная позиция соответствует по составу,
+      фармакологическому действию, фармокинетике, показаниям,  режиму дозирования, побочным действиям, противопоказаниям,
+      лекарственному взаимодействию, форме выпуска, дозировке, расфасовке, упаковке, условиям и срокам хранения.
+    </li>
+
+    <li class="list-group-item"><span class="font-weight-bold">Остаточный срок годности:</span> <%= @request.exp_date %></li>
+    <li class="list-group-item"><span class="font-weight-bold">Срок поставки товара:</span> <%= @request.delivery_time %></li>
+    <li class="list-group-item"><span class="font-weight-bold">Место поставки товара:</span> <%= @request.delivery_place %></li>
+  </ul>
+</div>
+<%#= render partial: 'request_drugs/request_drug', collection: @request_drugs %>
+
+<%#= render partial: 'request_drugs/form', locals:{drugs: @drugs} %>
+
+
+<!--<%#= link_to 'Edit', edit_request_path(@request) %> |-->
+<%#= link_to 'Back', requests_path %>
 
 

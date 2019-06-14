@@ -7,12 +7,18 @@ ru:
       drug:
         name: 'Название'
         mnn: 'МНН'
+        country: 'Страна'
+        dosage_form: 'Форма выпуска'
+        unit: 'Упаковка'
+        packing: 'Количество в упаковке'
+        producer: 'Производитель'
       request:
         auction_number: 'Номер аукциона'
-        purchase_info: 'Объект закупки'
+        purchase_info: 'Контракт на'
         etp: 'Электронная площадка'
         max_price: 'НМЦК'
         customer: 'Заказчик'
         delivery_place: 'Место доставки'
         delivery_time: 'Срок поставки'
         exp_date: 'Срок годности'
+

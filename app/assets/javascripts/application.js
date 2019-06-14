@@ -19,3 +19,10 @@
 //= require bootstrap-sprockets
 //= require cocoon
 //= require_tree .
+
+// $(function(){
+//   $('select').change(function(){
+//      // alert(this.id);
+//     document.getElementById('request_request_drugs_attributes_0_unit').value = this.value
+//   });
+// });
