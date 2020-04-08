@@ -20,9 +20,9 @@ module Models
 
         agent.user_agent_alias = 'Mac Safari'
 
-        page = agent.get("#{ZAKUPKI_URL}#{ZAKUPKI_AUCTION_URL}#{auction_number}")
+        #page = agent.get("#{ZAKUPKI_URL}#{ZAKUPKI_AUCTION_URL}#{auction_number}")
 
-        xml_link = "#{ZAKUPKI_URL}#{page.link_with(class: 'size14').href.gsub('view.html', 'viewXml.html')}"
+        xml_link = "#{ZAKUPKI_URL}/epz/order/notice/printForm/viewXml.html?regNumber=#{auction_number}"
 
         xml_doc = agent.get(xml_link).xml.remove_namespaces!
 
